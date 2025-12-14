@@ -2,22 +2,29 @@ package main
 import (
  "github.com/gin-gonic/gin"
 )
-var ID = 1
+
 func main() {
   type User struct {
    ID int `json:"id"` 
    Username string `json:"username"`
  } 
   router := gin.Default()
+   router.GET("/index.html", func(c *gin.Context) {
+    c.Redirect(307, "/index")
+   })
+   router.GET("/teapot", func(c *gin.Context) {
+      c.Strng(418, "I'm a teapot not a coffee pot.")
+  })
+   router.GET("/index", func(c *gin.Context) {
+     c.String(200, "Hello, World! go to /users/new to create a new user and go to /users/ids for user ids.")
+   })
    router.GET("/users/new", func(c *gin.Context) {
-  ID += 10               
+  ID := c.Query("id")           
   c.JSON(200, ID)
  })
  router.GET("/users/ids", func(c *gin.Context) {
-  nextID  := ID
-  var newUser User
-  newUser.ID = nextID
-  nextID++ 
+  nextID  := 1
+  nextID += 10
   c.JSON(201, nextID)
  })
 router.Run(":8080")
