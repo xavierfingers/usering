@@ -13,7 +13,7 @@ func main() {
     c.Redirect(307, "/index")
    })
    router.GET("/teapot", func(c *gin.Context) {
-      c.Strng(418, "I'm a teapot not a coffee pot.")
+      c.String(418, "I'm a teapot not a coffee pot.")
   })
    router.GET("/index", func(c *gin.Context) {
      c.String(200, "Hello, World! go to /users/new to create a new user and go to /users/ids for user ids.")
